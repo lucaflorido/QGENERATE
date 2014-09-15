@@ -1,5 +1,6 @@
 package qgenerate.pojo;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,19 +10,27 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
+
+
+
+import qgenerate.vo.IVo;
+import qgenerate.vo.Partner;
+
+
 @Entity
 @Table(name="Partner")
 public class TblPartner implements ITbl {
 	@Id @GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="idPartner")
 	private int idPartner;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL )
 	@JoinColumn(name = "idContact")
 	private TblContact contact;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL )
 	@JoinColumn(name = "idUser")
 	private TblUser user;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL )
 	@JoinColumn(name = "idCompany")
 	private TblCompany company;
 	public int getIdPartner() {
@@ -48,5 +57,20 @@ public class TblPartner implements ITbl {
 	public void setCompany(TblCompany company) {
 		this.company = company;
 	}
-	
+	public void convertToTable(IVo obj){
+		Partner p = (Partner)obj;
+		this.idPartner = p.getIdPartner();
+		if (p.getCompany() != null){
+			this.company = new TblCompany();
+			this.company.convertToTable(p.getCompany());
+		}
+		if (p.getContact() != null){
+			this.contact = new TblContact();
+			this.contact.convertToTable(p.getContact());
+		}
+		if (p.getUser() != null){
+			this.user = new TblUser();
+			this.user.convertToTable(p.getUser());
+		}
+	}
 }

@@ -1,5 +1,7 @@
 package qgenerate.vo;
 
-public interface IVo {
+import qgenerate.pojo.ITbl;
 
+public interface IVo {
+	public void convertFromTable(ITbl obj);
 }

@@ -1,9 +1,13 @@
 package qgenerate.vo;
 
-import javax.persistence.Column;
+
 
 import qgenerate.pojo.ITbl;
 import qgenerate.pojo.TblAddress;
+import qgenerate.transfer.QGError;
+import qgenerate.transfer.QGObject;
+import qgenerate.transfer.QGObjectSuccess;
+import qgenerate.transfer.QGParameter;
 
 public class Address implements IVo {
 	private int idAddress;
@@ -70,5 +74,20 @@ public class Address implements IVo {
 		this.street = a.getStreet();
 		this.zipcode = a.getZipcode();
 		this.zone = a.getZone();
+	}
+	public QGObject checkMainFields(){
+		if (this.city == null || this.city.equals(""))
+			return new QGError("Città non inserita");
+		if (this.country == null || this.country.equals(""))
+			return new QGError("Stato non inserito");
+		if (this.street == null || this.street.equals(""))
+			return new QGError("Via non inserita");
+		if (this.zipcode == null || this.zipcode.equals(""))
+			return new QGError("CAP non inserito");
+		if (this.zone == null || this.zone.equals(""))
+			return new QGError("Zona non inserita");
+		
+		
+		return new QGObjectSuccess();
 	}
 }

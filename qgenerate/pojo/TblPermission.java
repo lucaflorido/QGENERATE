@@ -5,9 +5,10 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import qgenerate.vo.IVo;
+import qgenerate.vo.Permission;
 
 @Entity
 @Table(name="Permission")
@@ -63,5 +64,12 @@ public class TblPermission implements ITbl {
 	public void setProject(TblProject project) {
 		this.project = project;
 	}*/
-	
+	public void convertToTable(IVo obj){
+		Permission p = (Permission)obj;
+		this.idPermission = p.getIdPermission();
+		this.perm_create = p.isPerm_create();
+		this.perm_delete = p.isPerm_delete();
+		this.perm_read = p.isPerm_read();
+		this.perm_update = p.isPerm_update();
+	}
 }

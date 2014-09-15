@@ -11,7 +11,7 @@
         <!-- property name="connection.url">jdbc:mysql://192.168.0.15/GECO</property>  
         <property name="connection.username">root</property>  
         <property name="connection.password">09050303</property-->
-        <property name="connection.url">jdbc:mysql://91.121.185.14/gecosofttest2</property>  
+        <property name="connection.url">jdbc:mysql://5.249.157.108/gecosofttest2</property>
         <property name="connection.username">lflorido2</property>  
         <property name="connection.password">svnf0rl0s</property>  
   

@@ -8,6 +8,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
+import qgenerate.util.DataUtilConverter;
+import qgenerate.vo.Contact;
+import qgenerate.vo.IVo;
 @Entity
 @Table(name="Contact")
 public class TblContact implements ITbl {
@@ -108,5 +112,19 @@ public class TblContact implements ITbl {
 	public void setTwitter(String twitter) {
 		this.twitter = twitter;
 	}
-	
+	public void convertToTable(IVo obj){
+		Contact c = (Contact)obj;
+		this.birthdate = DataUtilConverter.convertDateFromString(c.getBirthdate());
+		this.email = c.getEmail();
+		this.facebook = c.getFacebook();
+		this.idContact = c.getIdContact();
+		this.mobile1 = c.getMobile1();
+		this.mobile2 = c.getMobile2();
+		this.name = c.getName();
+		this.phone1 = c.getPhone1();
+		this.phone2 = c.getPhone2();
+		this.skype = c.getSkype();
+		this.surname = c.getSurname();
+		this.twitter = c.getTwitter();
+	}
 }

@@ -1,5 +1,6 @@
 package qgenerate.pojo;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,6 +10,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+
+
+import qgenerate.vo.Company;
+import qgenerate.vo.IVo;
+
 @Entity
 @Table(name="Company")
 public class TblCompany implements ITbl {
@@ -17,10 +23,10 @@ public class TblCompany implements ITbl {
 	private int idCompany;
 	@Column(name="name")
 	private String name;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL )
 	@JoinColumn(name = "idAddress")
 	private TblAddress address;
-	@ManyToOne
+	@ManyToOne(cascade = CascadeType.ALL )
 	@JoinColumn(name = "idContact")
 	private TblContact contact;
 	@Column(name="active")
@@ -71,6 +77,21 @@ public class TblCompany implements ITbl {
 	public void setSerialnumber(String serialnumber) {
 		this.serialnumber = serialnumber;
 	}
-	
+	public void convertToTable(IVo obj){
+		Company c = (Company)obj;
+		if (c.getAddress() != null){
+			this.address = new TblAddress();
+			this.address.convertToTable(c.getAddress());
+		}
+		this.active = c.isActive();
+		if (c.getContact() != null){
+			this.contact = new TblContact();
+			this.contact.convertToTable(c.getContact());
+		}
+		this.idCompany = c.getIdCompany();
+		this.name = c.getName();
+		this.serialnumber = c.getSerialnumber();
+		this.taxcode = c.getTaxcode();
+	}
 	
 }

@@ -7,6 +7,9 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import qgenerate.vo.IVo;
+import qgenerate.vo.User;
+
 @Entity
 @Table(name="User")
 public class TblUser implements ITbl {
@@ -25,6 +28,14 @@ public class TblUser implements ITbl {
 	private boolean admin;
 	@Column(name="consumer")
 	private boolean consumer;
+	@Column(name="code")
+	private int code;
+	public int getCode() {
+		return code;
+	}
+	public void setCode(int code) {
+		this.code = code;
+	}
 	public int getIdUser() {
 		return idUser;
 	}
@@ -67,5 +78,15 @@ public class TblUser implements ITbl {
 	public void setConsumer(boolean consumer) {
 		this.consumer = consumer;
 	}
-	
+	public void convertToTable(IVo obj){
+		User u = (User)obj;
+		this.active = u.isActive();
+		this.admin = u.isAdmin();
+		this.consumer = u.isConsumer();
+		this.email = u.getEmail();
+		this.idUser = u.getIdUser();
+		this.password = u.getPassword();
+		this.username = u.getUsername();
+		this.code = u.getCode();
+	}
 }

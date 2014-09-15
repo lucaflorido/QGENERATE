@@ -9,6 +9,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import qgenerate.vo.IVo;
+
+import qgenerate.vo.User_Permission;
+
 @Entity
 @Table(name="User_Permission")
 public class TblUser_Permission implements ITbl {
@@ -39,5 +43,16 @@ public class TblUser_Permission implements ITbl {
 	public void setPermission(TblPermission permission) {
 		this.permission = permission;
 	}
-	
+	public void convertToTable(IVo obj){
+		User_Permission up = (User_Permission) obj;
+		this.idUserPermission = up.getIdUserPermission();
+		if (up.getPermission() != null){
+			this.permission = new TblPermission();
+			this.permission.convertToTable(up.getPermission());
+		}
+		if(up.getUser() != null){
+			this.user = new TblUser();
+			this.user.convertToTable(up.getUser());
+		}
+	}
 }
